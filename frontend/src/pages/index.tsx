@@ -1,6 +1,7 @@
 import Head from "next/head";
 import styles from "@/styles/Home.module.css";
 import Header from "@/components/Header";
+import Search from "@/components/Search";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       </Head>
       <section className={styles.main}>
         <Header />
+        <Search />
       </section>
     </>
   );
