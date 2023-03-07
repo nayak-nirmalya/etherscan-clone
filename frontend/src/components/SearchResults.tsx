@@ -28,8 +28,8 @@ const SearchResults: React.FC<SearchResultsProps> = ({
   return (
     <section className={styles.searchResults}>
       <p className={styles.amountOfTransactions}>
-        Latest 24 from a total of{" "}
-        <span className={styles.blueText}>{result.length}</span>
+        Latest 25 from a total of{" "}
+        <span className={styles.blueText}>{result.length}</span> transactions.
       </p>
       <table className={styles.txnSection}>
         <thead>
@@ -49,13 +49,15 @@ const SearchResults: React.FC<SearchResultsProps> = ({
           return (
             <tbody key={index}>
               <tr className={styles.txn}>
-                <td className={styles.blueText}>{txn.hash.slice(0, 16)}...</td>
+                <td className={styles.blueText}>{txn.hash.slice(0, 14)}...</td>
                 <td>
                   <span className={styles.transfer}>
                     {txn.decoded_call ? txn.decoded_call.label : "unknown"}
                   </span>
                 </td>
-                <td className={styles.blueNumber}>{txn.block_number}</td>
+                <td className={styles.blueNumber} style={{ width: "6rem" }}>
+                  {txn.block_number}
+                </td>
                 <td>{moment(txn.block_timestamp, "YYYYMMDD").fromNow()}</td>
                 <td>
                   {txn.from_address.slice(0, 8)}...{txn.from_address.slice(34)}
