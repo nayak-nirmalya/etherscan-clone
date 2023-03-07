@@ -3,12 +3,27 @@ import React, { useState } from "react";
 import { Bean, Beans } from "@web3uikit/icons";
 import { Illustration } from "@web3uikit/core";
 import styles from "@/styles/Home.module.css";
+import SearchResults from "./SearchResults";
 
 type SearchProps = {};
 
+type Result = {
+  hash: string;
+  method: string;
+  block_number: string;
+  block_timestamp: string;
+  from_address: string;
+  to_address: string;
+  value: number;
+  gas_price: number;
+  decoded_call?: {
+    label: string;
+  };
+};
+
 const Search: React.FC<SearchProps> = () => {
   const [showResult, setShowResult] = useState<boolean>(false);
-  const [result, setResult] = useState([]);
+  const [result, setResult] = useState<Result[]>([]);
   const [searchInput, setSearchInput] = useState<string>("");
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,7 +94,9 @@ const Search: React.FC<SearchProps> = () => {
           </section>
         </section>
       </section>
-      {showResult && <SearchResults result={{ result, searchInput }} />}
+      {showResult && (
+        <SearchResults result={result} searchInput={searchInput} />
+      )}
     </section>
   );
 };
