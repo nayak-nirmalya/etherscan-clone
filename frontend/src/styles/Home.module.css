@@ -202,9 +202,9 @@
 
 .searchResults {
   background-color: #111111;
-  margin: 2rem 6rem;
+  margin: -2.5rem 6rem 3.5rem 6rem;
   border: 1px solid #222222;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   box-shadow: 0rem 0 1.5rem #ffffff09;
   padding: 1rem;
 }
@@ -296,6 +296,7 @@
 }
 
 .heroSectionContainer {
+  position: relative;
   width: 100%;
   margin-top: -2.5rem;
   padding-bottom: 5rem;
@@ -306,7 +307,7 @@
   justify-content: space-between;
   background-color: #111111;
   height: 11rem;
-  margin: 0 11.5rem;
+  margin: 0 8.5rem;
   border: 1px solid #222222;
   border-radius: 1rem;
   box-shadow: 0rem 0 1.5rem #ffffff09;
@@ -374,8 +375,7 @@
 .latestResults_body {
   display: flex;
   justify-content: space-between;
-  width: 79%;
-  margin: 1rem auto;
+  margin: 1rem 8.5rem;
 }
 
 .latestResults_body > section {
@@ -437,7 +437,7 @@
 
 .tdBlock {
   width: 11rem;
-  padding-left: 0.5rem;
+  padding-left: 1.5rem;
 }
 
 .tdTxns {
@@ -456,4 +456,5 @@
 
 .tdFromTo {
   width: 16rem;
+  margin: 2.5rem;
 }

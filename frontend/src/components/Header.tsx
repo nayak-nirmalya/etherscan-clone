@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
+import Router from "next/router";
 
 import styles from "@/styles/Home.module.css";
 import Logo from "../../public/assets/logo.png";
 
-type HeaderProps = {};
-
-const Header: React.FC<HeaderProps> = () => {
+const Header: React.FC = () => {
   const [ethPrice, setEthPrice] = useState<number>(0);
 
   useEffect(() => {
@@ -25,7 +24,15 @@ const Header: React.FC<HeaderProps> = () => {
         <span className={styles.blueText}>${Number(ethPrice).toFixed(2)}</span>
       </section>
       <section className={styles.navbar}>
-        <Image src={Logo} alt="Etherscan Logo" className={styles.logo} />
+        <Image
+          src={Logo}
+          alt="Etherscan Logo"
+          className={styles.logo}
+          onClick={() => Router.reload()}
+          style={{
+            cursor: "pointer",
+          }}
+        />
         <section className={styles.menu}>
           <p>Home</p>
           <p>

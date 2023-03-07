@@ -199,7 +199,7 @@ const HeroSection: React.FC = () => {
                             </section>
                           </td>
                           <td className={styles.tdValue}>
-                            {block.gasUsed} Eth
+                            {block.gasUsed} ETH
                           </td>
                         </tr>
                       );
@@ -253,7 +253,7 @@ const HeroSection: React.FC = () => {
                           </section>
                         </td>
                         <td className={styles.tdValue}>
-                          {(Number(txn.value) / 10 ** 18).toFixed(4)} Eth
+                          {(Number(txn.value) / 10 ** 18).toFixed(4)} ETH
                         </td>
                       </tr>
                     );
