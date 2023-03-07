@@ -32,7 +32,7 @@ const Search: React.FC<SearchProps> = () => {
 
   const handleSearch = async () => {
     // document.querySelector("#inputField").value = "";
-    setSearchInput("");
+    // setSearchInput("");
 
     const response = await axios.get("http://localhost:5001/address", {
       params: { address: searchInput },

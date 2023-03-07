@@ -28,7 +28,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({
   return (
     <section className={styles.searchResults}>
       <p className={styles.amountOfTransactions}>
-        Latest 25 from a total of{" "}
+        Latest 15 from a total of{" "}
         <span className={styles.blueText}>{result.length}</span> transactions.
       </p>
       <table className={styles.txnSection}>
@@ -45,9 +45,9 @@ const SearchResults: React.FC<SearchResultsProps> = ({
             <th className={styles.blueText}>Txn Fee</th>
           </tr>
         </thead>
-        {result.map((txn, index) => {
+        {result.slice(0, 15).map((txn) => {
           return (
-            <tbody key={index}>
+            <tbody key={txn.hash}>
               <tr className={styles.txn}>
                 <td className={styles.blueText}>{txn.hash.slice(0, 14)}...</td>
                 <td>
