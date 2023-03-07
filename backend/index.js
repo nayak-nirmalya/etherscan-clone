@@ -41,13 +41,12 @@ app.get("/getBlockInfo", async (req, res) => {
 
     for (let i = 0; i < 5; i++) {
       const previousBlockNrs = await Moralis.EvmApi.block.getBlock({
-        chain,
+        chain: "0x1",
         blockNumberOrHash: blockNrOrParentHash,
       });
 
       blockNrOrParentHash = previousBlockNrs.toJSON().parent_hash;
-
-      if (i === 0) {
+      if (i == 0) {
         previousBlockInfo.push({
           transactions: previousBlockNrs.toJSON().transactions.map((i) => {
             return {
@@ -60,7 +59,6 @@ app.get("/getBlockInfo", async (req, res) => {
           }),
         });
       }
-
       previousBlockInfo.push({
         blockNumber: previousBlockNrs.toJSON().number,
         totalTransactions: previousBlockNrs.toJSON().transaction_count,
@@ -68,16 +66,16 @@ app.get("/getBlockInfo", async (req, res) => {
         miner: previousBlockNrs.toJSON().miner,
         time: previousBlockNrs.toJSON().timestamp,
       });
-
-      const response = {
-        latestBlock: latestBlock.toJSON().block,
-        previousBlockInfo,
-      };
-
-      return res.status(200).json(response);
     }
-  } catch (error) {
-    console.error(error);
+
+    const response = {
+      latestBlock: latestBlock.toJSON().block,
+      previousBlockInfo,
+    };
+
+    return res.status(200).json(response);
+  } catch (err) {
+    console.log(`Somthing Went Wrong: ${err}`);
     return res.status(400).json();
   }
 });

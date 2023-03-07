@@ -13,17 +13,31 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-type HeroSectionProps = {};
+type BlockResult = {
+  blockNumber: number;
+  totalTransactions: number;
+  gasUsed: number;
+  miner: string;
+  time: string;
+};
 
-const HeroSection: React.FC<HeroSectionProps> = () => {
-  const [showResult, setShowResult] = useState<boolean>(true);
-  const [blockResult, setBlockResult] = useState<
-    [string, string, string, string, string]
-  >(["", "", "", "", ""]);
-  const [transactionResult, setTransactionResult] = useState([]);
+type Transaction = {
+  transactionHash: string;
+  time: string;
+  fromAddress: string;
+  toAddress: string;
+  value: string;
+};
+
+const HeroSection: React.FC = () => {
   const [ethPrice, setEthPrice] = useState<number>(0);
-  const [totalTransactions, setTotalTransactions] = useState<number>(0);
   const [latestBlock, setLatestBlock] = useState<number>(0);
+  const [showResult, setShowResult] = useState<boolean>(true);
+  const [blockResult, setBlockResult] = useState<BlockResult[]>([]);
+  const [totalTransactions, setTotalTransactions] = useState<number>(0);
+  const [transactionsResult, setTransactionsResult] = useState<Transaction[]>(
+    []
+  );
 
   useEffect(() => {
     const getEthPrice = async () => {
@@ -36,22 +50,23 @@ const HeroSection: React.FC<HeroSectionProps> = () => {
         "http://localhost:5001/getBlockInfo",
         {}
       );
-      const blockArray: [string, string, string, string, string] = [
-        response.data.previourBlockInfo[1],
-        response.data.previourBlockInfo[2],
-        response.data.previourBlockInfo[3],
-        response.data.previourBlockInfo[4],
-        response.data.previourBlockInfo[5],
-      ];
 
-      const transactions = [response.data.previourBlockInfo[0].transactions];
+      const blockArray = [
+        response.data.previousBlockInfo[1],
+        response.data.previousBlockInfo[2],
+        response.data.previousBlockInfo[3],
+        response.data.previousBlockInfo[4],
+        response.data.previousBlockInfo[5],
+      ];
+      setBlockResult(blockArray);
+
+      //   const transactions = [response.data.previousBlockInfo[0].transactions];
 
       setTotalTransactions(
-        response.data.previourBlockInfo[1].totalTransactions
+        response.data.previousBlockInfo[1].totalTransactions
       );
       setLatestBlock(response.data.latestBlock);
-      setBlockResult(blockArray);
-      setTransactionResult(response.data.previourBlockInfo[0].transactions);
+      setTransactionsResult(response.data.previousBlockInfo[0].transactions);
     };
 
     getEthPrice();
@@ -72,11 +87,6 @@ const HeroSection: React.FC<HeroSectionProps> = () => {
                     preserveAspectRatio="xMidYMid"
                     className={styles.svgEth}
                   >
-                    <script
-                      //   xmlns=""
-                      id="argent-x-extension"
-                      data-extension-id="dlcobpjiigpikoobohmabehhmhfoodbb"
-                    />
                     <path
                       fill="#fff"
                       d="M127.961 0l-2.795 9.5v275.668l2.795 2.79 127.962-75.638z"
@@ -95,13 +105,6 @@ const HeroSection: React.FC<HeroSectionProps> = () => {
                       d="M127.961 287.958l127.96-75.637-127.96-58.162z"
                     />
                     <path fill="#bbb" d="M0 212.32l127.96 75.638v-133.8z" />
-                    <script
-                      //   xmlns=""
-                      type="text/javascript"
-                      src="chrome-extension://fnnegphlobjdpkhecapkijjdkgcjhkib/inject-script.js"
-                      id="one-x-extension"
-                      data-extension-id="fnnegphlobjdpkhecapkijjdkgcjhkib"
-                    />
                   </svg>
                 </section>
                 <section className={styles.hero_box}>
@@ -160,44 +163,47 @@ const HeroSection: React.FC<HeroSectionProps> = () => {
               </section>
               <table className={styles.latestResults_body_table}>
                 <tbody>
-                  {blockResult.map((block) => {
-                    return (
-                      <tr
-                        className={`${styles.latestResults_body_tr} ${
-                          blockResult.indexOf(block) ==
-                            blockResult.length - 1 && styles.lastTd
-                        }`}
-                        key={block.blockNumber}
-                      >
-                        <td className={styles.tdIcon}>
-                          <FontAwesomeIcon icon={faCube} />
-                        </td>
-                        <td className={styles.tdBlock}>
-                          <section className={styles.blueText}>
-                            {block.blockNumber}
-                          </section>
-                          <section>
-                            {moment(block.time, "YYYYMMDD").fromNow()}
-                          </section>
-                        </td>
-                        <td className={styles.tdTxns}>
-                          <section>
-                            Fee Recipient{" "}
-                            <span className={styles.blueText}>
-                              {block.miner.slice(0, 6)}...
-                              {block.miner.slice(36)}
-                            </span>
-                          </section>
-                          <section>
-                            <span className={styles.blueText}>
-                              {block.totalTransactions} txns
-                            </span>
-                          </section>
-                        </td>
-                        <td className={styles.tdValue}>{block.gasUsed} Eth</td>
-                      </tr>
-                    );
-                  })}
+                  {blockResult &&
+                    blockResult.map((block) => {
+                      return (
+                        <tr
+                          className={`${styles.latestResults_body_tr} ${
+                            blockResult.indexOf(block) ==
+                              blockResult.length - 1 && styles.lastTd
+                          }`}
+                          key={block.blockNumber}
+                        >
+                          <td className={styles.tdIcon}>
+                            <FontAwesomeIcon icon={faCube} />
+                          </td>
+                          <td className={styles.tdBlock}>
+                            <section className={styles.blueText}>
+                              {block.blockNumber}
+                            </section>
+                            <section>
+                              {moment(block.time, "YYYYMMDD").fromNow()}
+                            </section>
+                          </td>
+                          <td className={styles.tdTxns}>
+                            <section>
+                              Fee Recipient{" "}
+                              <span className={styles.blueText}>
+                                {block.miner.slice(0, 6)}...
+                                {block.miner.slice(36)}
+                              </span>
+                            </section>
+                            <section>
+                              <span className={styles.blueText}>
+                                {block.totalTransactions} txns
+                              </span>
+                            </section>
+                          </td>
+                          <td className={styles.tdValue}>
+                            {block.gasUsed} Eth
+                          </td>
+                        </tr>
+                      );
+                    })}
                 </tbody>
               </table>
             </section>
@@ -207,7 +213,7 @@ const HeroSection: React.FC<HeroSectionProps> = () => {
               </section>
               <table className={styles.latestResults_body_table}>
                 <tbody>
-                  {transactionsResult.map((txn) => {
+                  {transactionsResult.slice(0, 5).map((txn) => {
                     return (
                       <tr
                         className={`${styles.latestResults_body_tr} ${
@@ -243,9 +249,6 @@ const HeroSection: React.FC<HeroSectionProps> = () => {
                             <span className={styles.blueText}>
                               {txn.toAddress?.slice(0, 6)}...
                               {txn.toAddress?.slice(36)}
-                            </span>
-                            <span className={styles.blueText}>
-                              {txn.totalTransactions}
                             </span>
                           </section>
                         </td>
