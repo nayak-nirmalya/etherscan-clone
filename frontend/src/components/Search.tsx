@@ -42,6 +42,12 @@ const Search: React.FC<SearchProps> = () => {
     setShowResult(true);
   };
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   return (
     <section className={styles.searchContainer}>
       <section className={styles.searchHeader}>
@@ -56,6 +62,7 @@ const Search: React.FC<SearchProps> = () => {
               placeholder="Search by Address / Txn Hash / Block / Token / Domain Name"
               required
               onChange={changeHandler}
+              onKeyDown={handleKeyDown}
             />
             <button className={styles.btn} onClick={handleSearch}>
               <svg

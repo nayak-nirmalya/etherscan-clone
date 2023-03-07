@@ -202,7 +202,7 @@
 
 .searchResults {
   background-color: #111111;
-  margin: 2rem 11.5rem;
+  margin: 2rem 6rem;
   border: 1px solid #222222;
   border-radius: 0.5rem;
   box-shadow: 0rem 0 1.5rem #ffffff09;
@@ -217,6 +217,11 @@
 }
 
 .blueText {
+  color: #7cb3d7;
+}
+
+.blueNumber {
+  width: 6rem;
   color: #7cb3d7;
 }
 
@@ -256,7 +261,7 @@
 
 .transfer {
   font-size: 0.8rem;
-  width: 8rem;
+  /* width: 8rem; */
   background-color: #151515;
   padding: 0.35rem 1.2rem;
   border: 1px solid #2c2c2c;

@@ -52,10 +52,10 @@ const SearchResults: React.FC<SearchResultsProps> = ({
                 <td className={styles.blueText}>{txn.hash.slice(0, 16)}...</td>
                 <td>
                   <span className={styles.transfer}>
-                    {txn.decoded_call ? txn.decoded_call.label : "Unknown"}
+                    {txn.decoded_call ? txn.decoded_call.label : "unknown"}
                   </span>
                 </td>
-                <td className={styles.blueText}>{txn.block_number}</td>
+                <td className={styles.blueNumber}>{txn.block_number}</td>
                 <td>{moment(txn.block_timestamp, "YYYYMMDD").fromNow()}</td>
                 <td>
                   {txn.from_address.slice(0, 8)}...{txn.from_address.slice(34)}
