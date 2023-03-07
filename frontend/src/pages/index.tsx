@@ -13,7 +13,6 @@ export default function Home() {
       </Head>
       <section className={styles.main}>
         <Header />
-        <p>All the Components Will Be Here.</p>
       </section>
     </>
   );
