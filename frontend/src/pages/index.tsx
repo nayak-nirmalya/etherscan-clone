@@ -2,6 +2,7 @@ import Head from "next/head";
 import styles from "@/styles/Home.module.css";
 import Header from "@/components/Header";
 import Search from "@/components/Search";
+import HeroSection from "@/components/HeroSection";
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
       <section className={styles.main}>
         <Header />
         <Search />
+        <HeroSection />
       </section>
     </>
   );

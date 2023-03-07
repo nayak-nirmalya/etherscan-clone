@@ -8,7 +8,7 @@ import Logo from "../../public/assets/logo.png";
 type HeaderProps = {};
 
 const Header: React.FC<HeaderProps> = () => {
-  const [ethPrice, setEthPrice] = useState<string>("");
+  const [ethPrice, setEthPrice] = useState<number>(0);
 
   useEffect(() => {
     const getEthPrice = async () => {
