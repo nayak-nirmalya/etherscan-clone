@@ -18,6 +18,13 @@ const Header: React.FC<HeaderProps> = () => {
     getEthPrice();
   }, []);
 
-  return <div>Have a good coding</div>;
+  return (
+    <section className={styles.header}>
+      <section className={styles.topHeader}>
+        ETH Price:{" "}
+        <span className={styles.blueText}>${Number(ethPrice).toFixed(2)}</span>
+      </section>
+    </section>
+  );
 };
 export default Header;
